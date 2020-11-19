@@ -94,33 +94,6 @@ function getHumanData() {
 
     return humanData;
 }
-// function createDiv(humanData,rawDino){
-
-//     document.getElementById("dino-compare").remove();
-//     let newHumanData = [];
-//     newHumanData.push(humanData);
-
-//     rawDino.forEach(myFunction);
-
-//     function myFunction(item,index){
-
-        
-//         let grid = document.getElementById("grid");
-//         const newDiv = document.createElement('div');
-//         newDiv.classList.add("grid-item");
-//         if (index === 3) {
-//             newDiv.innerHTML = `<h3>${newHumanData.name}</h3><img src="images/human.png" alt="image of human"><p>${newHumanData.name}</p>`;
-//             return true;
-//         }
-//         newDiv.innerHTML = `<h3>${rawDino[index].species}</h3><img src="images/${rawDino[index].species.toLowerCase()}.png" alt="image of ${rawDino[index].species}"><p>${rawDino[index].fact}</p>`;
-
-
-//         grid.appendChild(newDiv);
-
-        
-//     }
-
-// }
 function createDiv(humanData,rawDino){
 
     document.getElementById("dino-compare").remove();
