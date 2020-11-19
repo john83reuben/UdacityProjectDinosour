@@ -86,6 +86,7 @@ function getHumanData() {
 
     const humanData = {
         name: name.value,
+        species: "human",
         height: height.value,
         weight: weight.value,
         diet: diet.value
@@ -94,57 +95,47 @@ function getHumanData() {
 
     return humanData;
 }
+
 function createDiv(humanData,rawDino){
 
     document.getElementById("dino-compare").remove();
 
+    const mergeData = [];
+    for (let index = 0; index < (rawDino.length)/2 ; index++) {
+        mergeData.push(rawDino[index]);
 
-    let mergeData;
-    mergeData = rawDino.concat(humanData);
-    
+    }
+    mergeData.push(humanData);
 
-    console.log(rawDino);
-    console.log(humanData);
-    console.log(mergeData);
+    for (let index = 4; index < rawDino.length; index++) {
+        mergeData.push(rawDino[index]);
 
-    // for(let index=0; index < mergeData.length ; index++){
-    //         let grid = document.getElementById("grid");
-    //         const newDiv = document.createElement('div');
-    //         newDiv.classList.add("grid-item");
-    //         if (index === 3) {
-    //             newDiv.innerHTML = `<h3>${mergeData[index].name}</h3><img src="images/human.png" alt="image of human"><p>${mergeData[index].name}</p>`;
-    //             continue;
-    //         }
-    //         newDiv.innerHTML = `<h3>${mergeData[index].species}</h3><img src="images/${mergeData[index].species.toLowerCase()}.png" alt="image of ${mergeData[index].species}"><p>${mergeData[index].fact}</p>`;
-    //         grid.appendChild(newDiv);
+    }
 
-
-    // }
-
-    rawDino.forEach(myFunction);
+    mergeData.forEach(myFunction);
 
     function myFunction(item,index){
 
-        
         let grid = document.getElementById("grid");
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
-        if (index === 3) {
-            newDiv.innerHTML = `<h3>${mergeData.name}</h3><img src="images/human.png" alt="image of human"><p>${mergeData.name}</p>`;
-            return true;
+        // Checking if the object is for a human or not
+        if(item.hasOwnProperty('name')) {
+            console.log("humand detected")
+            newDiv.innerHTML = `<h3>${item.name}</h3>
+                                <img src="images/human.png" alt="image of human">
+                                <p>${item.name}</p>`;
+        } else {
+            newDiv.innerHTML = `<h3>${item.species}</h3>
+                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
+                                <p>${item.fact}</p>`;
         }
-        newDiv.innerHTML = `<h3>${mergeData[index].species}</h3><img src="images/${mergeData[index].species.toLowerCase()}.png" alt="image of ${mergeData[index].species}"><p>${mergeData[index].fact}</p>`;
-
 
         grid.appendChild(newDiv);
 
-        
     }
     
-
 }
-
-
 
 function clicked(e) {
   // Prevent default page reloading on submit
