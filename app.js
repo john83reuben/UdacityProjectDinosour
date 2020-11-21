@@ -4,6 +4,7 @@ const name = document.getElementById("name");
 const height = document.getElementById("feet");
 const weight = document.getElementById("weight");
 const diet =  document.getElementById("diet").value;
+let grid = document.getElementById("grid");
 
 
 function rawDinoData() {
@@ -112,7 +113,6 @@ function createDinosaur(){
     return dinosaurArray.sort(() => Math.random() - 0.5);
 
 }
-
 function getHumanData() {
 
     const humanData = {
@@ -128,7 +128,6 @@ function getHumanData() {
 
 function createDiv(humanData,rawDino){
 
-    document.getElementById("dino-compare").remove();
 
     const mergeData = [];
     for (let index = 0; index < (rawDino.length)/2 ; index++) {
@@ -142,13 +141,10 @@ function createDiv(humanData,rawDino){
 
     }
     
-    
-    console.log(mergeData);
+    //console.log(mergeData);
     mergeData.forEach(myFunction);
 
     function myFunction(item,index){
-        //console.log(item);
-        let grid = document.getElementById("grid");
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
         // Checking if the object is for a human or not
@@ -170,59 +166,62 @@ function createDiv(humanData,rawDino){
     createButton();
 }
 
+
+function compare(e){
+    const humanData = getHumanData();
+    const dinosaurArray = createDinosaur()
+    removeGrid();
+    const createElement = createDiv(humanData,dinosaurArray);
+    
+
+}
+function removeGrid(){
+    grid.innerHTML = '';
+    document.querySelector("button").remove();
+}
+
+function removeForm(){
+    document.getElementById("dino-compare").remove();
+
+}
+
 function createButton(){
 
-    //main = document.getElementById("grid");
     parent = document.getElementById("parent");
-    // const button = document.createElement('div');
-    // button.setAttribute("id","btn" );
-    // button.setAttribute("type","submit" );
-    // button.appendChild(document.createTextNode("Compare Again"));
-    // main.innerHTML = "button"
-    // console.log(button);
     const btn = document.createElement("BUTTON");
     btn.setAttribute("id","btn" );
     btn.setAttribute("type","submit" );
     btn.innerHTML = "Compare Again";
+    btn.addEventListener('click',compare);
     parent.appendChild(btn);
     
-    
-    
-
+       
 }
-
 
 function clicked(e) {
-  // Prevent default page reloading on submit
-  e.preventDefault();
+    // Prevent default page reloading on submit
+    e.preventDefault();
+    
+    const humanData = getHumanData();
+    
+    if (humanData.name === "") {
+        alert('Name cannot be blank');
+        
+    } else if (humanData.height < 1) {
+        alert('Height must be more than 0');
+        
+    } else if (humanData.weight < 1) {
+        alert('Weight must be more than 0');
+        
+    }
+     
+      const dinosaurArray = createDinosaur()
+      removeForm();
+      const createElement = createDiv(humanData,dinosaurArray);
   
-  const humanData = getHumanData();
-  
-  if (humanData.name === "") {
-      alert('Name cannot be blank');
-      
-  } else if (humanData.height < 1) {
-      alert('Height must be more than 0');
-      
-  } else if (humanData.weight < 1) {
-      alert('Weight must be more than 0');
-      
   }
-   
-    const dinosaurArray = createDinosaur()
-    console.log(dinosaurArray);
-    const createElement = createDiv(humanData,dinosaurArray);
-
-}
-function compare(e){
-    console.log("Test");
-
-
-}
 
 button.addEventListener('click', clicked);
-button.addEventListener('click', () => {
-    compare()
-  });
+
 
 
