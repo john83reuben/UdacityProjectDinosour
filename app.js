@@ -4,7 +4,7 @@ const name = document.getElementById("name");
 const height = document.getElementById("feet");
 const weight = document.getElementById("weight");
 const diet =  document.getElementById("diet").value;
-const main = document.getElementById("grid");
+
 
 function rawDinoData() {
     const dinos = [
@@ -172,7 +172,8 @@ function createDiv(humanData,rawDino){
 
 function createButton(){
 
-    main = document.getElementById("grid");
+    //main = document.getElementById("grid");
+    parent = document.getElementById("parent");
     // const button = document.createElement('div');
     // button.setAttribute("id","btn" );
     // button.setAttribute("type","submit" );
@@ -183,7 +184,8 @@ function createButton(){
     btn.setAttribute("id","btn" );
     btn.setAttribute("type","submit" );
     btn.innerHTML = "Compare Again";
-    main.appendChild(btn);
+    parent.appendChild(btn);
+    
     
     
 
@@ -219,6 +221,8 @@ function compare(e){
 }
 
 button.addEventListener('click', clicked);
-button.addEventListener('click', compare);
+button.addEventListener('click', () => {
+    compare()
+  });
 
 
