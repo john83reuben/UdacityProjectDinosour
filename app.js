@@ -4,6 +4,7 @@ const name = document.getElementById("name");
 const height = document.getElementById("feet");
 const weight = document.getElementById("weight");
 const diet =  document.getElementById("diet").value;
+const main = document.getElementById("grid");
 
 function rawDinoData() {
     const dinos = [
@@ -81,12 +82,41 @@ function rawDinoData() {
         }
     ]
     return dinos;
+    
 }
+
+//Dinosaur Constructor 
+function Dinosaur(dino){
+
+    this.species = dino.species;
+    this.diet = dino.diet;
+    this.where = dino.where;
+    this.when = dino.when;
+    this.fact = dino.fact;
+
+}
+
+// Create Dino Object
+function createDinosaur(){
+    const rawDino =  rawDinoData();
+    const dinosaurArray = [];
+    
+    
+
+    rawDino.forEach(function (dino){
+        dinoObj = new Dinosaur(dino);
+        dinosaurArray.push(dinoObj);
+        
+    })
+    
+    return dinosaurArray.sort(() => Math.random() - 0.5);
+
+}
+
 function getHumanData() {
 
     const humanData = {
         name: name.value,
-        species: "human",
         height: height.value,
         weight: weight.value,
         diet: diet.value
@@ -111,11 +141,13 @@ function createDiv(humanData,rawDino){
         mergeData.push(rawDino[index]);
 
     }
-
+    
+    
+    console.log(mergeData);
     mergeData.forEach(myFunction);
 
     function myFunction(item,index){
-
+        //console.log(item);
         let grid = document.getElementById("grid");
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
@@ -132,10 +164,31 @@ function createDiv(humanData,rawDino){
         }
 
         grid.appendChild(newDiv);
+        
 
-    }
-    
+    } 
+    createButton();
 }
+
+function createButton(){
+
+    main = document.getElementById("grid");
+    // const button = document.createElement('div');
+    // button.setAttribute("id","btn" );
+    // button.setAttribute("type","submit" );
+    // button.appendChild(document.createTextNode("Compare Again"));
+    // main.innerHTML = "button"
+    // console.log(button);
+    const btn = document.createElement("BUTTON");
+    btn.setAttribute("id","btn" );
+    btn.setAttribute("type","submit" );
+    btn.innerHTML = "Compare Again";
+    main.appendChild(btn);
+    
+    
+
+}
+
 
 function clicked(e) {
   // Prevent default page reloading on submit
@@ -143,7 +196,6 @@ function clicked(e) {
   
   const humanData = getHumanData();
   
-
   if (humanData.name === "") {
       alert('Name cannot be blank');
       
@@ -155,12 +207,18 @@ function clicked(e) {
       
   }
    
-    const rawDino =  rawDinoData();
-    //console.log(rawDino);
-    const createElement = createDiv(humanData,rawDino);
+    const dinosaurArray = createDinosaur()
+    console.log(dinosaurArray);
+    const createElement = createDiv(humanData,dinosaurArray);
+
+}
+function compare(e){
+    console.log("Test");
+
 
 }
 
 button.addEventListener('click', clicked);
+button.addEventListener('click', compare);
 
 
