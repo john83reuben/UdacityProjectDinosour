@@ -99,12 +99,16 @@ function Dinosaur(dino){
 
 //Dinosaur prototype
 Dinosaur.prototype.mix = function(dino){
-    this.myName = "john";
+
+    // step one : newArray = [store all Dinosaur key properties only];
+    // step two : use Math.random() function on newArray and set it to variable
+    
+    //step three : return the variable, so that i can use the value returned in createDiv function in the innerHTML section
 }
+
 
 // Assign the methods in the dinosaurPrototype to all objects created with Dinosaur Constructor
 //Dinosaur.prototype = dinosaurMethods;
-
 
 // Create Dino Object
 function createDinosaur(){
@@ -172,7 +176,7 @@ function createDiv(humanData,rawDino){
         } else {
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item.name}</p>`;
+                                <p>${item.mix()}</p>`;
                                 //<p>${item.when}</p>`;
                                 //<p>${item.fact}</p>`;
         }
