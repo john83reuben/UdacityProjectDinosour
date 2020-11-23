@@ -97,6 +97,15 @@ function Dinosaur(dino){
 
 }
 
+//Dinosaur prototype
+Dinosaur.prototype.mix = function(dino){
+    this.myName = "john";
+}
+
+// Assign the methods in the dinosaurPrototype to all objects created with Dinosaur Constructor
+//Dinosaur.prototype = dinosaurMethods;
+
+
 // Create Dino Object
 function createDinosaur(){
     const rawDino =  rawDinoData();
@@ -145,19 +154,30 @@ function createDiv(humanData,rawDino){
     mergeData.forEach(myFunction);
 
     function myFunction(item,index){
+        
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
         // Checking if the object is for a human or not
+        
         if(item.hasOwnProperty('name')) {
             console.log("humand detected")
             newDiv.innerHTML = `<h3>${item.name}</h3>
-                                <img src="images/human.png" alt="image of human">
-                                <p>${item.name}</p>`;
-        } else {
+                                <img src="images/human.png" alt="image of human">`;
+                                //<p>${item.name}</p>`;
+        } else if(item.species === 'Pigeon') {
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.fact}</p>`;
+                                
+        } else {
+            newDiv.innerHTML = `<h3>${item.species}</h3>
+                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
+                                <p>${item.name}</p>`;
+                                //<p>${item.when}</p>`;
+                                //<p>${item.fact}</p>`;
         }
+
+        
 
         grid.appendChild(newDiv);
         
