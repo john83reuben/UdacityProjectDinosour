@@ -1,4 +1,3 @@
-
 const button = document.getElementById("btn");
 const name = document.getElementById("name");
 const height = document.getElementById("feet");
@@ -98,21 +97,14 @@ function Dinosaur(dino){
 }
 
 //Dinosaur prototype
-// Dinosaur.prototype.mix = function(dino){
+Dinosaur.prototype.mix = function(dino){
 
-//      const items = ['species','diet','where','when','fact'];
-//      const item = items[Math.floor(Math.random()*items.length)];
-//      //console.log(item);
+    // const arrayItems = ['diet','weight','height','where','when','fact'];
+    // const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
 
-//     // step one : newArray = [store all Dinosaur key properties only];
-//     // step two : use Math.random() function on newArray and set it to variable
-    
-//     //step three : return the variable, so that i can use the value returned in createDiv function in the innerHTML section
-//     //console.log(Object.keys(this.species));
-//     console.log(item);
-//     //return "diet";
+    return "arrayItem";
+}
 
-// }
 
 
 // Assign the methods in the dinosaurPrototype to all objects created with Dinosaur Constructor
@@ -149,10 +141,6 @@ function getHumanData() {
 
 function createDiv(humanData,rawDino){
 
-    const arrayItems = ['species','diet','where','when','fact'];
-    //const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
-    const arrayItem = 'when';
-
 
     const mergeData = [];
     for (let index = 0; index < (rawDino.length)/2 ; index++) {
@@ -171,7 +159,6 @@ function createDiv(humanData,rawDino){
 
     function myFunction(item,index){
         
-        
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
         // Checking if the object is for a human or not
@@ -189,10 +176,12 @@ function createDiv(humanData,rawDino){
         } else {
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item.arrayItem}</p>`;
-                                // <p>${arrayItem}</p>`;
-
+                                <p>${item[mix()]}</p>`;
+                                //<p>${item.when}</p>`;
+                                //<p>${item.fact}</p>`;
         }
+
+        
 
         grid.appendChild(newDiv);
         
@@ -252,11 +241,10 @@ function clicked(e) {
      
       const dinosaurArray = createDinosaur()
       removeForm();
+      
       const createElement = createDiv(humanData,dinosaurArray);
   
   }
 
 button.addEventListener('click', clicked);
-
-
 
