@@ -99,10 +99,10 @@ function Dinosaur(dino){
 //Dinosaur prototype
 Dinosaur.prototype.mix = function(dino){
 
-    // const arrayItems = ['diet','weight','height','where','when','fact'];
-    // const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
+    const arrayItems = ['diet','weight','height','where','when','fact'];
+    const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
 
-    return "arrayItem";
+    return arrayItem;
 }
 
 
