@@ -91,8 +91,8 @@ function Dinosaur(dino){
 
     this.species = dino.species;
     this.diet = dino.diet;
-    this.weight = dino.weight;
-    this.height = dino.height;
+    //this.weight = dino.weight;
+    //this.height = dino.height;
     this.where = dino.where;
     this.when = dino.when;
     this.fact = dino.fact;
@@ -177,7 +177,7 @@ function createDiv(humanData,rawDino){
         } else {
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item[mix()]}</p>`;
+                                <p>${item[item.mix()]}</p>`;
                                 // <p>${arrayItem}</p>`;
 
         }

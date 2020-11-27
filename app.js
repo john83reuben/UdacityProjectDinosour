@@ -93,18 +93,53 @@ function Dinosaur(dino){
     this.where = dino.where;
     this.when = dino.when;
     this.fact = dino.fact;
+    this.height = dino.height;
+    this.weight = dino.weight;
 
 }
 
 //Dinosaur prototype
 Dinosaur.prototype.mix = function(dino){
 
-    const arrayItems = ['diet','weight','height','where','when','fact'];
+    //const arrayItems = ['species','diet','where','when','fact','height','weight'];
+    const arrayItems = ['weight','weight','weight','weight','weight','weight','weight'];
     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
-
+    
     return arrayItem;
 }
+Dinosaur.prototype.compareWeight = function(dino){
 
+    const weightRatio = (this.weight / humanWeight).toFixed(1);
+    // Check for human less than, greater than, or same weight as dino
+    if (weightRatio > 1) {
+        return `${this.species} weighed ${(this.weight / humanWeight).toFixed(1)} times more than you!`;
+    }
+    if (weightRatio < 1) {
+        return `You weigh ${(humanWeight / this.weight).toFixed(1)} times more than ${this.species}!`;
+    }
+    return `You weigh the same as ${this.species}!`;
+
+    
+
+
+}
+
+// function mix1(){
+
+//     const arrayItems = ['diet','where','when','fact','height','weight'];
+//     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
+    
+//     return arrayItem;
+
+// }
+
+// function compareWeight(){
+
+//     const arrayItem = ['weight'];
+//     console.log('compareWeight function');
+
+//     return arrayItem;
+// }
 
 
 // Assign the methods in the dinosaurPrototype to all objects created with Dinosaur Constructor
@@ -141,7 +176,7 @@ function getHumanData() {
 
 function createDiv(humanData,rawDino){
 
-
+    
     const mergeData = [];
     for (let index = 0; index < (rawDino.length)/2 ; index++) {
         mergeData.push(rawDino[index]);
@@ -158,6 +193,7 @@ function createDiv(humanData,rawDino){
     mergeData.forEach(myFunction);
 
     function myFunction(item,index){
+
         
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
@@ -173,15 +209,22 @@ function createDiv(humanData,rawDino){
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.fact}</p>`;
                                 
-        } else {
+        } 
+        else if (item.mix() === 'weight'){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item[mix()]}</p>`;
+                                <p>${item.compareWeight()}</p>`;
                                 //<p>${item.when}</p>`;
                                 //<p>${item.fact}</p>`;
         }
 
-        
+        else {
+            newDiv.innerHTML = `<h3>${item.species}</h3>
+                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
+                                <p>${item[item.mix()]}</p>`;
+                                //<p>${item.when}</p>`;
+                                //<p>${item.fact}</p>`;
+        }
 
         grid.appendChild(newDiv);
         
