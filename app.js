@@ -102,44 +102,58 @@ function Dinosaur(dino){
 Dinosaur.prototype.mix = function(dino){
 
     //const arrayItems = ['species','diet','where','when','fact','height','weight'];
-    const arrayItems = ['weight','weight','weight','weight','weight','weight','weight'];
+    const arrayItems = ['diet','diet','diet','diet','diet','diet','diet'];
     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
     
     return arrayItem;
 }
-Dinosaur.prototype.compareWeight = function(dino){
+Dinosaur.prototype.compareWeight = function(dinoWeight,dinoSpecies){
 
-    const weightRatio = (this.weight / humanWeight).toFixed(1);
-    // Check for human less than, greater than, or same weight as dino
-    if (weightRatio > 1) {
-        return `${this.species} weighed ${(this.weight / humanWeight).toFixed(1)} times more than you!`;
+    humanWeight = getHumanData();
+    //console.log(dinoWeight +  dinoSpecies);
+
+    const weightRatio = (dinoWeight/humanWeight.weight).toFixed(1);
+    //console.log(weightRatio);
+    if(weightRatio > 1){
+        return `${dinoSpecies} weighed ${(dinoWeight / humanWeight.weight).toFixed(1)} times more than you!`;
+    } 
+    if(weightRatio < 1){
+        return `You weigh ${(humanWeight.weight / dinoWeight.weight).toFixed(1)} times more than ${dinoSpecies}!`;
     }
-    if (weightRatio < 1) {
-        return `You weigh ${(humanWeight / this.weight).toFixed(1)} times more than ${this.species}!`;
-    }
-    return `You weigh the same as ${this.species}!`;
-
-    
-
+    return `You weigh the same as ${dinoSpecies}!`;
 
 }
 
-// function mix1(){
+Dinosaur.prototype.compareHeight = function(dinoHeight,dinoSpecies){
 
-//     const arrayItems = ['diet','where','when','fact','height','weight'];
-//     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
-    
-//     return arrayItem;
+    humanHeight = getHumanData();
+    //console.log(dinoHeight +  dinoSpecies);
 
-// }
+    const heightRatio = (dinoHeight/humanHeight.height).toFixed(1);
+    //console.log(heightRatio);
+    if(heightRatio > 1){
+        return `${dinoHeight} was ${(dinoHeight / humanHeight.height).toFixed(1)} times taller than you!`;
+    } 
+    if(heightRatio < 1){
+        return `You are ${(humanHeight.height / dinoHeight).toFixed(1)} times taller than ${dinoSpecies}!`;
+    }
+    return `You are the same height as ${dinoSpecies}!`;
 
-// function compareWeight(){
+}
 
-//     const arrayItem = ['weight'];
-//     console.log('compareWeight function');
+Dinosaur.prototype.compareDiet = function(dinoDiet,dinoSpecies){
 
-//     return arrayItem;
-// }
+    const article = dinoDiet === 'omnivore' ? 'an' : 'a';
+    humanDiet = getHumanData();
+    console.log(humanDiet);
+
+    if (humanDiet.diet === dinoDiet) {
+        return `You are ${article} ${humanDiet.diet} and ${dinoSpecies} was too!`;
+    } else {
+        return `You are ${article} ${humanDiet.diet}, but ${dinoSpecies} was a ${dinoDiet}.`;
+    }
+
+}
 
 
 // Assign the methods in the dinosaurPrototype to all objects created with Dinosaur Constructor
@@ -213,17 +227,25 @@ function createDiv(humanData,rawDino){
         else if (item.mix() === 'weight'){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item.compareWeight()}</p>`;
-                                //<p>${item.when}</p>`;
-                                //<p>${item.fact}</p>`;
+                                <p>${item.compareWeight(item.weight,item.species)}</p>`;
+
+        }
+        else if (item.mix() === 'height'){
+            newDiv.innerHTML = `<h3>${item.species}</h3>
+                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
+                                <p>${item.compareHeight(item.height,item.species)}</p>`;
+
+        }
+        else if (item.mix() === 'diet'){
+            newDiv.innerHTML = `<h3>${item.species}</h3>
+                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
+                                <p>${item.compareDiet(item.diet,item.species)}</p>`;
         }
 
         else {
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item[item.mix()]}</p>`;
-                                //<p>${item.when}</p>`;
-                                //<p>${item.fact}</p>`;
         }
 
         grid.appendChild(newDiv);
