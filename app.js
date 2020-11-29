@@ -97,7 +97,13 @@ function Dinosaur(dino){
     this.weight = dino.weight;
 
 }
+// function mix1(){
+//     const arrayItems = ['height','weight','species','diet','where','when','fact'];
+//     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
 
+//     return arrayItem
+
+// }
 //Dinosaur prototype
 Dinosaur.prototype.mix = function(dino){
 
@@ -194,6 +200,7 @@ function createDiv(humanData,rawDino){
     mergeData.forEach(myFunction);
 
     function myFunction(item,index){
+        const details = item.mix();
 
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
@@ -212,19 +219,19 @@ function createDiv(humanData,rawDino){
                                 <p>${item.fact}</p>`;
                                 
         } 
-        else if (item.mix() === 'weight'){
+        else if (details === 'weight'){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.compareWeight(item.weight,item.species)}</p>`;
 
         }
-        else if (item.mix() === 'height'){
+        else if (details === 'height'){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.compareHeight(item.height,item.species)}</p>`;
 
         }
-        else if (item.mix() === 'diet'){
+        else if (details === 'diet'){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.compareDiet(item.diet.toLowerCase(),item.species)}</p>`;
@@ -236,8 +243,7 @@ function createDiv(humanData,rawDino){
                                 <p>${item[item.mix()]}</p>`;
         }
 
-        
-        console.log(Dinosaur.prototype.mix());
+          
         grid.appendChild(newDiv);
         
 
