@@ -191,16 +191,18 @@ function createDiv(humanData,rawDino){
         mergeData.push(rawDino[index]);
 
     }
-    mergeData.push(humanData);
+    //mergeData.push(humanData);
 
     for (let index = 4; index < rawDino.length; index++) {
         mergeData.push(rawDino[index]);
 
     }
     mergeData.forEach(myFunction);
+    console.log(mergeData);
 
     function myFunction(item,index){
-        const details = item.mix();
+        const details = item.mix && item.mix();
+        console.log(details);
 
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
@@ -243,7 +245,6 @@ function createDiv(humanData,rawDino){
                                 <p>${item[item.mix()]}</p>`;
         }
 
-          
         grid.appendChild(newDiv);
         
 
