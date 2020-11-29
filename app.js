@@ -97,17 +97,11 @@ function Dinosaur(dino){
     this.weight = dino.weight;
 
 }
-// function mix1(){
-//     const arrayItems = ['height','weight','species','diet','where','when','fact'];
-//     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
-
-//     return arrayItem
-
-// }
 //Dinosaur prototype
 Dinosaur.prototype.mix = function(dino){
 
-    const arrayItems = ['height','weight','species','diet','where','when','fact'];
+    const arrayItems = ['height','weight','diet','where','when','fact'];
+    //const arrayItems = ['height','weight','diet','when'];
     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
     //console.log(arrayItem);
     return arrayItem;
@@ -191,7 +185,7 @@ function createDiv(humanData,rawDino){
         mergeData.push(rawDino[index]);
 
     }
-    //mergeData.push(humanData);
+    mergeData.push(humanData);
 
     for (let index = 4; index < rawDino.length; index++) {
         mergeData.push(rawDino[index]);
@@ -242,7 +236,7 @@ function createDiv(humanData,rawDino){
         else {
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item[item.mix()]}</p>`;
+                                <p>${item[details]}</p>`;
         }
 
         grid.appendChild(newDiv);
