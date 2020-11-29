@@ -97,15 +97,15 @@ function Dinosaur(dino){
     this.weight = dino.weight;
 
 }
-//Dinosaur prototype
+//Dinosaur prototype: Method to return random arrayItem
 Dinosaur.prototype.mix = function(dino){
 
     const arrayItems = ['height','weight','diet','where','when','fact'];
-    //const arrayItems = ['height','weight','diet','when'];
     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
-    //console.log(arrayItem);
+    
     return arrayItem;
 }
+//Dinosaur prototype
 Dinosaur.prototype.compareWeight = function(dinoWeight,dinoSpecies){
 
     humanWeight = getHumanData();
@@ -164,6 +164,7 @@ function createDinosaur(){
     return dinosaurArray.sort(() => Math.random() - 0.5);
 
 }
+// Function to get Human Data
 function getHumanData() {
 
     const humanData = {
@@ -176,7 +177,7 @@ function getHumanData() {
 
     return humanData;
 }
-
+//Generate Tiles for each Dino in Array
 function createDiv(humanData,rawDino){
 
     
@@ -254,16 +255,18 @@ function compare(e){
     const createElement = createDiv(humanData,dinosaurArray);
     
 }
+// Remove the button
 function removeGrid(){
     grid.innerHTML = '';
     document.querySelector("button").remove();
 }
 
+// Remove form from screen
 function removeForm(){
     document.getElementById("dino-compare").remove();
 
 }
-
+// Function to create Compare Again button in the grid screen
 function createButton(){
 
     parent = document.getElementById("parent");
@@ -276,7 +279,7 @@ function createButton(){
     
        
 }
-
+// Called when the user clicks the submit button, this programs calls the other parts of the sequence
 function clicked(e) {
     // Prevent default page reloading on submit
     e.preventDefault();
@@ -285,12 +288,15 @@ function clicked(e) {
     
     if (humanData.name === "") {
         alert('Name cannot be blank');
+        return;
         
     } else if (humanData.height < 1) {
         alert('Height must be more than 0');
+        return;
         
     } else if (humanData.weight < 1) {
         alert('Weight must be more than 0');
+        return;
         
     }
      
@@ -300,7 +306,8 @@ function clicked(e) {
       const createElement = createDiv(humanData,dinosaurArray);
   
   }
-//button.addEventListener('click', clicked);
+
+//IIFE to attach the event listeners on the buttons
 (function () {
     document.getElementById('btn').addEventListener('click', clicked);
 })();
