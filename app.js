@@ -1,8 +1,8 @@
-const button = document.getElementById("btn");
+//const button = document.getElementById("btn");
 const name = document.getElementById("name");
 const height = document.getElementById("feet");
 const weight = document.getElementById("weight");
-const diet =  document.getElementById("diet").value;
+const diet =  document.getElementById("diet");
 let grid = document.getElementById("grid");
 
 
@@ -30,7 +30,7 @@ function rawDinoData() {
             "species": "Anklyosaurus",
             "weight": 10500,
             "height": 55,
-            "diet": "herbavor",
+            "diet": "herbivore",
             "where": "North America",
             "when": "Late Cretaceous",
             "fact": "Anklyosaurus survived for approximately 135 million years."
@@ -39,7 +39,7 @@ function rawDinoData() {
             "species": "Brachiosaurus",
             "weight": 70000,
             "height": "372",
-            "diet": "herbavor",
+            "diet": "herbivore",
             "where": "North America",
             "when": "Late Jurasic",
             "fact": "An asteroid was named 9954 Brachiosaurus in 1991."
@@ -48,7 +48,7 @@ function rawDinoData() {
             "species": "Stegosaurus",
             "weight": 11600,
             "height": 79,
-            "diet": "herbavor",
+            "diet": "herbivore",
             "where": "North America, Europe, Asia",
             "when": "Late Jurasic to Early Cretaceous",
             "fact": "The Stegosaurus had between 17 and 22 seperate places and flat spines."
@@ -57,7 +57,7 @@ function rawDinoData() {
             "species": "Elasmosaurus",
             "weight": 16000,
             "height": 59,
-            "diet": "carnivor",
+            "diet": "carnivore",
             "where": "North America",
             "when": "Late Cretaceous",
             "fact": "Elasmosaurus was a marine reptile first discovered in Kansas."
@@ -66,7 +66,7 @@ function rawDinoData() {
             "species": "Pteranodon",
             "weight": 44,
             "height": 20,
-            "diet": "carnivor",
+            "diet": "carnivore",
             "where": "North America",
             "when": "Late Cretaceous",
             "fact": "Actually a flying reptile, the Pteranodon is not a dinosaur."
@@ -75,7 +75,7 @@ function rawDinoData() {
             "species": "Pigeon",
             "weight": 0.5,
             "height": 9,
-            "diet": "herbavor",
+            "diet": "herbivore",
             "where": "World Wide",
             "when": "Holocene",
             "fact": "All birds are living dinosaurs."
@@ -101,24 +101,21 @@ function Dinosaur(dino){
 //Dinosaur prototype
 Dinosaur.prototype.mix = function(dino){
 
-    //const arrayItems = ['species','diet','where','when','fact','height','weight'];
-    const arrayItems = ['diet','diet','diet','diet','diet','diet','diet'];
+    const arrayItems = ['height','weight','species','diet','where','when','fact'];
     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
-    
+    //console.log(arrayItem);
     return arrayItem;
 }
 Dinosaur.prototype.compareWeight = function(dinoWeight,dinoSpecies){
 
     humanWeight = getHumanData();
-    //console.log(dinoWeight +  dinoSpecies);
-
     const weightRatio = (dinoWeight/humanWeight.weight).toFixed(1);
-    //console.log(weightRatio);
+    
     if(weightRatio > 1){
         return `${dinoSpecies} weighed ${(dinoWeight / humanWeight.weight).toFixed(1)} times more than you!`;
     } 
     if(weightRatio < 1){
-        return `You weigh ${(humanWeight.weight / dinoWeight.weight).toFixed(1)} times more than ${dinoSpecies}!`;
+        return `You weigh ${(humanWeight.weight / dinoWeight).toFixed(1)} times more than ${dinoSpecies}!`;
     }
     return `You weigh the same as ${dinoSpecies}!`;
 
@@ -127,10 +124,8 @@ Dinosaur.prototype.compareWeight = function(dinoWeight,dinoSpecies){
 Dinosaur.prototype.compareHeight = function(dinoHeight,dinoSpecies){
 
     humanHeight = getHumanData();
-    //console.log(dinoHeight +  dinoSpecies);
 
     const heightRatio = (dinoHeight/humanHeight.height).toFixed(1);
-    //console.log(heightRatio);
     if(heightRatio > 1){
         return `${dinoHeight} was ${(dinoHeight / humanHeight.height).toFixed(1)} times taller than you!`;
     } 
@@ -142,22 +137,16 @@ Dinosaur.prototype.compareHeight = function(dinoHeight,dinoSpecies){
 }
 
 Dinosaur.prototype.compareDiet = function(dinoDiet,dinoSpecies){
-
-    const article = dinoDiet === 'omnivore' ? 'an' : 'a';
+    
     humanDiet = getHumanData();
-    console.log(humanDiet);
-
+    const article = humanDiet.diet === 'Omnivor' ? 'an' : 'a';
+    //console.log(dinoSpecies + humanDiet.diet + dinoDiet);
     if (humanDiet.diet === dinoDiet) {
         return `You are ${article} ${humanDiet.diet} and ${dinoSpecies} was too!`;
     } else {
         return `You are ${article} ${humanDiet.diet}, but ${dinoSpecies} was a ${dinoDiet}.`;
     }
-
 }
-
-
-// Assign the methods in the dinosaurPrototype to all objects created with Dinosaur Constructor
-//Dinosaur.prototype = dinosaurMethods;
 
 // Create Dino Object
 function createDinosaur(){
@@ -202,23 +191,22 @@ function createDiv(humanData,rawDino){
         mergeData.push(rawDino[index]);
 
     }
-    
-    //console.log(mergeData);
     mergeData.forEach(myFunction);
 
     function myFunction(item,index){
 
-        
         const newDiv = document.createElement('div');
         newDiv.classList.add("grid-item");
+       
         // Checking if the object is for a human or not
-        
         if(item.hasOwnProperty('name')) {
             console.log("humand detected")
             newDiv.innerHTML = `<h3>${item.name}</h3>
                                 <img src="images/human.png" alt="image of human">`;
                                 //<p>${item.name}</p>`;
-        } else if(item.species === 'Pigeon') {
+
+        } 
+        else if(item.species === 'Pigeon') {
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.fact}</p>`;
@@ -239,7 +227,7 @@ function createDiv(humanData,rawDino){
         else if (item.mix() === 'diet'){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item.compareDiet(item.diet,item.species)}</p>`;
+                                <p>${item.compareDiet(item.diet.toLowerCase(),item.species)}</p>`;
         }
 
         else {
@@ -248,6 +236,8 @@ function createDiv(humanData,rawDino){
                                 <p>${item[item.mix()]}</p>`;
         }
 
+        
+        console.log(Dinosaur.prototype.mix());
         grid.appendChild(newDiv);
         
 
@@ -262,7 +252,6 @@ function compare(e){
     removeGrid();
     const createElement = createDiv(humanData,dinosaurArray);
     
-
 }
 function removeGrid(){
     grid.innerHTML = '';
@@ -310,6 +299,7 @@ function clicked(e) {
       const createElement = createDiv(humanData,dinosaurArray);
   
   }
-
-button.addEventListener('click', clicked);
-
+//button.addEventListener('click', clicked);
+(function () {
+    document.getElementById('btn').addEventListener('click', clicked);
+})();
