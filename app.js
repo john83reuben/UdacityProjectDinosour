@@ -101,6 +101,7 @@ function Dinosaur(dino){
 Dinosaur.prototype.mix = function(dino){
 
     const arrayItems = ["height","weight","diet","where","when","fact"];
+    //const arrayItems = ["diet"];
     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
     
     return arrayItem;
@@ -141,7 +142,7 @@ Dinosaur.prototype.compareDiet = function(dinoDiet,dinoSpecies){
     humanDiet = getHumanData();
     const article = humanDiet.diet === "Omnivor" ? "an" : "a";
     
-    if (humanDiet.diet === dinoDiet) {
+    if (humanDiet.diet.toLowerCase() === dinoDiet) {
         return `You are ${article} ${humanDiet.diet} and ${dinoSpecies} was too!`;
     } else {
         return `You are ${article} ${humanDiet.diet}, but ${dinoSpecies} was a ${dinoDiet}.`;
@@ -190,6 +191,28 @@ function createButton(){
     
        
 }
+// Function to create Grid image tiles
+function createImg(species){
+
+    const newDiv = document.createElement("h3");
+    newDiv.textContent = species;
+    const newText = document.createElement("img");
+    newText.setAttribute("src", "images/"+species.toLowerCase()+".png");
+    newText.setAttribute("alt", "image of "+ species);
+    newDiv.append(newText);
+    
+    return newDiv;
+
+}
+//Function to create Paragraph element to describe the Dinosour 
+function createP(newContent){
+
+    const addParagraph = document.createElement("p");
+    addParagraph.appendChild(newContent);
+
+    return addParagraph;
+
+}
 //Generate Tiles for each Dino in Array
 function createDiv(humanData,rawDino){
 
@@ -205,10 +228,10 @@ function createDiv(humanData,rawDino){
         mergeData.push(rawDino[index]);
 
     }
-    mergeData.forEach(myFunction);
+    mergeData.forEach(myLogic);
    
 
-    function myFunction(item,index){
+    function myLogic(item,index){
         const details = item.mix && item.mix();
         
 
@@ -222,34 +245,43 @@ function createDiv(humanData,rawDino){
                                 <img src="images/human.png" alt="image of human">`;
                                 
         } 
-        else if(item.species === "Pigeon") {
-            newDiv.innerHTML = `<h3>${item.species}</h3>
-                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item.fact}</p>`;
-                                
-        } 
+        else if (item.species === "Pigeon"){
+
+            newDiv.appendChild(createImg(item.species));
+            const newContent = document.createTextNode(item.fact);
+            newDiv.append(createP(newContent));
+            
+        }
         else if (details === "weight"){
-            newDiv.innerHTML = `<h3>${item.species}</h3>
-                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item.compareWeight(item.weight,item.species)}</p>`;
+
+            newDiv.appendChild(createImg(item.species));
+            const newContent = document.createTextNode(item.compareWeight(item.weight,item.species));
+            newDiv.append(createP(newContent));
+            
 
         }
         else if (details === "height"){
-            newDiv.innerHTML = `<h3>${item.species}</h3>
-                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item.compareHeight(item.height,item.species)}</p>`;
+
+            newDiv.appendChild(createImg(item.species));
+            const newContent = document.createTextNode(item.compareHeight(item.height,item.species));
+            newDiv.append(createP(newContent));
+            
 
         }
         else if (details === "diet"){
-            newDiv.innerHTML = `<h3>${item.species}</h3>
-                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item.compareDiet(item.diet.toLowerCase(),item.species)}</p>`;
-        }
 
+            dinoDiet = item.diet.toLowerCase();
+            newDiv.appendChild(createImg(item.species));
+            const newContent = document.createTextNode(item.compareDiet(dinoDiet,item.species));
+            newDiv.append(createP(newContent));
+            
+        }
         else {
-            newDiv.innerHTML = `<h3>${item.species}</h3>
-                                <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
-                                <p>${item[details]}</p>`;
+
+            newDiv.appendChild(createImg(item.species));
+            const newContent = document.createTextNode(item[details]);
+            newDiv.append(createP(newContent));
+            
         }
 
         grid.appendChild(newDiv);
