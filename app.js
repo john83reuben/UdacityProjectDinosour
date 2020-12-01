@@ -100,7 +100,7 @@ function Dinosaur(dino){
 //Dinosaur prototype: Method to return random arrayItem
 Dinosaur.prototype.mix = function(dino){
 
-    const arrayItems = ['height','weight','diet','where','when','fact'];
+    const arrayItems = ["height","weight","diet","where","when","fact"];
     const arrayItem = arrayItems[Math.floor(Math.random() * arrayItems.length)];
     
     return arrayItem;
@@ -139,8 +139,8 @@ Dinosaur.prototype.compareHeight = function(dinoHeight,dinoSpecies){
 Dinosaur.prototype.compareDiet = function(dinoDiet,dinoSpecies){
     
     humanDiet = getHumanData();
-    const article = humanDiet.diet === 'Omnivor' ? 'an' : 'a';
-    //console.log(dinoSpecies + humanDiet.diet + dinoDiet);
+    const article = humanDiet.diet === "Omnivor" ? "an" : "a";
+    
     if (humanDiet.diet === dinoDiet) {
         return `You are ${article} ${humanDiet.diet} and ${dinoSpecies} was too!`;
     } else {
@@ -177,6 +177,19 @@ function getHumanData() {
 
     return humanData;
 }
+// Function to create Compare Again button in the grid screen
+function createButton(){
+
+    parent = document.getElementById("parent");
+    const btn = document.createElement("BUTTON");
+    btn.setAttribute("id","btn" );
+    btn.setAttribute("type","submit" );
+    btn.innerHTML = "Compare Again";
+    btn.addEventListener("click",compare);
+    parent.appendChild(btn);
+    
+       
+}
 //Generate Tiles for each Dino in Array
 function createDiv(humanData,rawDino){
 
@@ -193,42 +206,41 @@ function createDiv(humanData,rawDino){
 
     }
     mergeData.forEach(myFunction);
-    console.log(mergeData);
+   
 
     function myFunction(item,index){
         const details = item.mix && item.mix();
-        console.log(details);
+        
 
-        const newDiv = document.createElement('div');
+        const newDiv = document.createElement("div");
         newDiv.classList.add("grid-item");
        
         // Checking if the object is for a human or not
-        if(item.hasOwnProperty('name')) {
-            console.log("humand detected")
+        if(item.hasOwnProperty("name")) {
+            
             newDiv.innerHTML = `<h3>${item.name}</h3>
                                 <img src="images/human.png" alt="image of human">`;
-                                //<p>${item.name}</p>`;
-
+                                
         } 
-        else if(item.species === 'Pigeon') {
+        else if(item.species === "Pigeon") {
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.fact}</p>`;
                                 
         } 
-        else if (details === 'weight'){
+        else if (details === "weight"){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.compareWeight(item.weight,item.species)}</p>`;
 
         }
-        else if (details === 'height'){
+        else if (details === "height"){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.compareHeight(item.height,item.species)}</p>`;
 
         }
-        else if (details === 'diet'){
+        else if (details === "diet"){
             newDiv.innerHTML = `<h3>${item.species}</h3>
                                 <img src="images/${item.species.toLowerCase()}.png" alt="image of ${item.species}">
                                 <p>${item.compareDiet(item.diet.toLowerCase(),item.species)}</p>`;
@@ -257,7 +269,7 @@ function compare(e){
 }
 // Remove the button
 function removeGrid(){
-    grid.innerHTML = '';
+    grid.innerHTML = "";
     document.querySelector("button").remove();
 }
 
@@ -265,19 +277,6 @@ function removeGrid(){
 function removeForm(){
     document.getElementById("dino-compare").remove();
 
-}
-// Function to create Compare Again button in the grid screen
-function createButton(){
-
-    parent = document.getElementById("parent");
-    const btn = document.createElement("BUTTON");
-    btn.setAttribute("id","btn" );
-    btn.setAttribute("type","submit" );
-    btn.innerHTML = "Compare Again";
-    btn.addEventListener('click',compare);
-    parent.appendChild(btn);
-    
-       
 }
 // Called when the user clicks the submit button, this programs calls the other parts of the sequence
 function clicked(e) {
@@ -287,15 +286,15 @@ function clicked(e) {
     const humanData = getHumanData();
     
     if (humanData.name === "") {
-        alert('Name cannot be blank');
+        alert("Name cannot be blank");
         return;
         
     } else if (humanData.height < 1) {
-        alert('Height must be more than 0');
+        alert("Height must be more than 0");
         return;
         
     } else if (humanData.weight < 1) {
-        alert('Weight must be more than 0');
+        alert("Weight must be more than 0");
         return;
         
     }
@@ -309,5 +308,5 @@ function clicked(e) {
 
 //IIFE to attach the event listeners on the buttons
 (function () {
-    document.getElementById('btn').addEventListener('click', clicked);
+    document.getElementById("btn").addEventListener("click", clicked);
 })();
